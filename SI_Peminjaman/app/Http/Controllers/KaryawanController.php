@@ -2,64 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\karyawan;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
 class KaryawanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Karyawan::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|string',
+            'email' => 'required|email|unique:karyawans',
+        ]);
+
+        return Karyawan::create($request->all());
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(karyawan $karyawan)
+    public function show($id)
     {
-        //
+        return Karyawan::findOrFail($id);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(karyawan $karyawan)
+    public function update(Request $request, $id)
     {
-        //
+        $karyawan = Karyawan::findOrFail($id);
+        $karyawan->update($request->all());
+        return $karyawan;
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, karyawan $karyawan)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(karyawan $karyawan)
-    {
-        //
+        return Karyawan::destroy($id);
     }
 }

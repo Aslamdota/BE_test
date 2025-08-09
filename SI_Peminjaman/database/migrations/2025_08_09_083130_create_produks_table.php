@@ -9,17 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+   public function up()
 {
-    Schema::create('karyawans', function (Blueprint $table) {
+    Schema::create('produks', function (Blueprint $table) {
         $table->id();
         $table->string('nama');
-        $table->string('email')->unique();
-        $table->string('alamat')->nullable();
-        $table->string('telepon')->nullable();
+        $table->text('deskripsi')->nullable();
+        $table->integer('stok')->default(0);
+        $table->decimal('harga', 15, 2);
+        $table->string('gambar')->nullable(); // Kolom gambar
         $table->timestamps();
     });
 }
+
 
 
     /**
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('karyawans');
+        Schema::dropIfExists('produks');
     }
 };
