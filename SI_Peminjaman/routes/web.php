@@ -8,6 +8,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 
 Route::resource('produk', ProdukController::class);
 Route::get('/karyawans', [KaryawanController::class, 'index']);
@@ -17,6 +19,9 @@ Route::put('/karyawans/{id}', [KaryawanController::class, 'update']);
 Route::delete('/karyawans/{id}', [KaryawanController::class, 'destroy']);
 Route::resource('produk', ProdukController::class);
 Route::resource('users', UserController::class)->middleware('auth');
+Route::resource('orders', OrderController::class);
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+
 
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
